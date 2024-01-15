@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Link from "next/link";
-import { buttonCss } from ".";
+import { buttonClass } from ".";
 import Image from "next/image";
 
 const Favorites = () => {
@@ -31,13 +31,16 @@ const Favorites = () => {
 
   return (
     <>
-      <Link style={{ ...buttonCss, marginRight: "16px" }} href="/">
-        Go to Home
-      </Link>
-      <Link style={buttonCss} href="/gallery">
-        Got to Gallery
-      </Link>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className="flex space-x-4 my-4">
+        <Link className={buttonClass} href="/">
+          Go to Home
+        </Link>
+        <Link className={buttonClass} href="/gallery">
+          Go to Gallery
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {apiData
           .filter((data) => {
             return favs.includes(data.id);
@@ -45,21 +48,9 @@ const Favorites = () => {
           .map((fav) => (
             <div
               key={fav.id}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                flex: "1 0 21%",
-                padding: "32px",
-              }}
+              className="flex flex-col flex-1 flex-shrink-0 p-8"
             >
-              <div
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  height: "100%",
-                }}
-              >
+              <div className="flex flex-col flex-1 flex-shrink-0 justify-center items-center">
                 <Image
                   src={fav.urls.full}
                   width={200}
@@ -67,14 +58,11 @@ const Favorites = () => {
                   alt={`Fav Image ${fav.id}`}
                 />
               </div>
-              <p style={{ color: "green", textAlign: "center" }}>
-                Marked as Favorite
-              </p>
               <button
                 onClick={() => {
                   removeFav(fav.id);
                 }}
-                style={{ ...buttonCss, backgroundColor: "red" }}
+                className={`${buttonClass} + bg-red-500`}
               >
                 Remove from Fav
               </button>

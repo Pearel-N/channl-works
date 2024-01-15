@@ -21,21 +21,14 @@ const HomePage = () => {
   if (!randomeImage) return null;
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          marginTop: "32px",
-          flexDirection: "column",
-        }}
-      >
-        <h1>Welcome</h1>
+      <div className="flex items-center mt-8 flex-col">
+        <p className="text-3xl font-bold ">Welcome</p>
         <Image src={randomeImage} width={400} height={400} />
         <div>
-          <Link style={{ ...buttonCss, marginRight: "16px" }} href="/gallery">
+          <Link className={buttonClass + "mr-6"} href="/gallery">
             Got to Gallery
           </Link>
-          <Link style={buttonCss} href="/favorites">
+          <Link className={buttonClass} href="/favorites">
             Got to favorites
           </Link>
         </div>
@@ -44,13 +37,5 @@ const HomePage = () => {
   );
 };
 
-export const buttonCss = {
-  marginTop: "64px",
-  backgroundColor: "#04AA6D",
-  color: "white",
-  padding: "15px 32px",
-  textAlign: "center",
-  fontSize: "16px",
-  margin: "4px 2px",
-  cursor: "pointer",
-};
+export const buttonClass =
+  "mt-16 bg-green-600 text-white p-4 text-center text-lg mx-2 my-4 cursor-pointer";

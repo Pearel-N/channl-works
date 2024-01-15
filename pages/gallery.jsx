@@ -1,7 +1,7 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { buttonCss } from ".";
+import { buttonClass } from ".";
 import Image from "next/image";
 
 const Gallery = () => {
@@ -39,60 +39,36 @@ const Gallery = () => {
 
   return (
     <>
-      <Link style={buttonCss} href="/">
-        Go to Home
-      </Link>
-      <Link style={buttonCss} href="/favorites">
-        Got to favorites
-      </Link>
-      <div style={{ display: "flex", flexWrap: "wrap" }}>
+      <div className="flex space-x-4 my-4">
+        <Link className={buttonClass} href="/">
+          Go to Home
+        </Link>
+        <Link className={buttonClass} href="/favorites">
+          Go to Favorites
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {apiData.map((fake) => (
-          <div
-            key={fake.id}
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              flex: "1 0 21%",
-              padding: "32px",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
-              }}
-            >
+          <div key={fake.id} className="flex flex-col flex-1 flex-shrink-0 p-8">
+            <div className="flex flex-col flex-1 flex-shrink-0 justify-center items-center">
               <Image
                 src={fake.urls.full}
+                alt={`Image ${fake.id}`}
                 width={200}
                 height={200}
-                alt={`Image ${fake.id}`}
               />
             </div>
 
             {isFav(fake.id) ? (
-              <>
-                <p style={{ color: "green", textAlign: "center" }}>
-                  Marked as Favorite
-                </p>
-                <button
-                  onClick={() => {
-                    removeFav(fake.id);
-                  }}
-                  style={{ ...buttonCss, backgroundColor: "red" }}
-                >
-                  Remove from Fav
-                </button>
-              </>
-            ) : (
               <button
-                onClick={() => {
-                  addFav(fake.id);
-                }}
-                style={buttonCss}
+                onClick={() => removeFav(fake.id)}
+                className={`${buttonClass} bg-red-500`}
               >
+                Remove from Fav
+              </button>
+            ) : (
+              <button onClick={() => addFav(fake.id)} className={buttonClass}>
                 Add to Fav
               </button>
             )}
